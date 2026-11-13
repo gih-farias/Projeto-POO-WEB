@@ -1,0 +1,60 @@
+body {
+  background-color: #f3f4f6;
+}
+
+
+.navbar {
+  background-color: #2f4858;
+}
+
+/* mensagem fixa no topo pra aparecer mesmo com a página rolada */
+#mensagem {
+  position: fixed;
+  top: 70px;
+  left: 16px;
+  right: 16px;
+  max-width: 480px;
+  margin-left: auto;
+  z-index: 2000;
+}
+
+
+.card-resumo {
+  border: 0;
+  border-left: 5px solid #2f4858;
+}
+
+
+.borda-total {
+  border-left-color: #2f4858;
+}
+
+
+.borda-livros {
+  border-left-color: #33658a;
+}
+
+
+.borda-revistas {
+  border-left-color: #f6ae2d;
+}
+
+
+.numero {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+
+.table th {
+  white-space: nowrap;
+}
+
+
+/* deixa os botões de ação quebrarem de linha em tela pequena */
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 190px;
+}

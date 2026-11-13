@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Biblioteca Universitária</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <nav class="navbar navbar-dark">
+    <div class="container">
+      <span class="navbar-brand mb-0 h1">Biblioteca Universitária</span>
+      <span class="navbar-text d-none d-sm-inline">Livros e revistas</span>
+    </div>
+  </nav>
+
+
+  <div id="mensagem" class="alert d-none" role="alert"></div>
+
+
+  <main class="container my-4">
+    <section class="row g-3 mb-4" aria-label="Resumo do acervo">
+      <div class="col-12 col-md-4">
+        <div class="card shadow-sm card-resumo borda-total">
+          <div class="card-body">
+            <p class="text-muted mb-1">Total de materiais</p>
+            <p class="numero mb-0" id="resumo-total">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card shadow-sm card-resumo borda-livros">
+          <div class="card-body">
+            <p class="text-muted mb-1">Livros</p>
+            <p class="numero mb-0" id="resumo-livros">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card shadow-sm card-resumo borda-revistas">
+          <div class="card-body">
+            <p class="text-muted mb-1">Revistas</p>
+            <p class="numero mb-0" id="resumo-revistas">0</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card shadow-sm border-0 mb-4" aria-labelledby="titulo-lista">
+      <div class="card-body">
+        <div class="row g-2 align-items-center mb-3">
+          <div class="col-12 col-lg">
+            <h2 class="h5 mb-0" id="titulo-lista">Materiais cadastrados</h2>
+          </div>
+          <div class="col-12 col-md-7 col-lg-auto">
+            <form id="form-busca" class="d-flex gap-2">
+              <label for="busca-id" class="visually-hidden">ID do material</label>
+              <input type="text" id="busca-id" class="form-control" placeholder="Buscar por ID">
+              <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+            </form>
+          </div>
+          <div class="col-12 col-md-5 col-lg-auto">
+            <button type="button" id="btn-atualizar" class="btn btn-outline-primary w-100">Atualizar lista</button>
+          </div>
+        </div>
+
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Ano</th>
+                <th>Tipo</th>
+                <th>Detalhes</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista-corpo"></tbody>
+          </table>
+        </div>
+        <p id="lista-vazia" class="text-center text-muted my-4 d-none">Nenhum material cadastrado ainda.</p>
+      </div>
+    </section>
+
+
+    <section class="row g-4 mb-4" aria-label="Cadastro de materiais">
+
+
+      <div class="col-12 col-lg-6">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body">
+            <h2 class="h5 mb-3">Cadastrar livro</h2>
+            <form id="form-livro" novalidate>
+              <div class="mb-3">
+                <label for="livro-titulo" class="form-label">Título</label>
+                <input type="text" id="livro-titulo" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="livro-autor" class="form-label">Autor</label>
+                <input type="text" id="livro-autor" class="form-control">
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col-6">
+                  <label for="livro-ano" class="form-label">Ano de publicação</label>
+                  <input type="number" id="livro-ano" class="form-control">
+                </div>
+                <div class="col-6">
+                  <label for="livro-paginas" class="form-label">Número de páginas</label>
+                  <input type="number" id="livro-paginas" class="form-control">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Salvar livro</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-lg-6">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body">
+            <h2 class="h5 mb-3">Cadastrar revista</h2>
+            <form id="form-revista" novalidate>
+              <div class="mb-3">
+                <label for="revista-titulo" class="form-label">Título</label>
+                <input type="text" id="revista-titulo" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="revista-ano" class="form-label">Ano de publicação</label>
+                <input type="number" id="revista-ano" class="form-control">
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col-6">
+                  <label for="revista-edicao" class="form-label">Número da edição</label>
+                  <input type="number" id="revista-edicao" class="form-control">
+                </div>
+                <div class="col-6">
+                  <label for="revista-mes" class="form-label">Mês (1 a 12)</label>
+                  <input type="number" id="revista-mes" class="form-control">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Salvar revista</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+  </main>
+
+
+  <footer class="text-center text-muted small pb-4">
+    Trabalho final de Desenvolvimento Web e Mobile I
+  </footer>
+
+
+  <div class="modal fade" id="modal-editar" tabindex="-1" aria-labelledby="titulo-editar" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="titulo-editar">Editar material</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form-editar" novalidate>
+            <div class="mb-3">
+              <label for="editar-titulo" class="form-label">Título</label>
+              <input type="text" id="editar-titulo" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="editar-ano" class="form-label">Ano de publicação</label>
+              <input type="number" id="editar-ano" class="form-control">
+            </div>
+
+
+            <div id="bloco-livro">
+              <div class="mb-3">
+                <label for="editar-autor" class="form-label">Autor</label>
+                <input type="text" id="editar-autor" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="editar-paginas" class="form-label">Número de páginas</label>
+                <input type="number" id="editar-paginas" class="form-control">
+              </div>
+            </div>
+
+
+            <div id="bloco-revista">
+              <div class="mb-3">
+                <label for="editar-edicao" class="form-label">Número da edição</label>
+                <input type="number" id="editar-edicao" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="editar-mes" class="form-label">Mês (1 a 12)</label>
+                <input type="number" id="editar-mes" class="form-control">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" form="form-editar" class="btn btn-primary">Salvar alterações</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-detalhes" tabindex="-1" aria-labelledby="titulo-detalhes" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="titulo-detalhes">Detalhes</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <dl class="row mb-0" id="detalhes-corpo"></dl>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
