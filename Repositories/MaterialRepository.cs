@@ -2,11 +2,11 @@ public class MaterialRepository : IMaterialRepository
 { 
     private Dictionary<int, MaterialBiblioteca> _materiais = new Dictionary<int, MaterialBiblioteca>() 
     { 
-        { 
-            1, new Livro { Id = 1, Titulo = "O Pequeno Príncipe", AnoPublicacao = 2020 } 
+        {
+            1, new Livro { Id = 1, Titulo = "O Pequeno Príncipe", AnoPublicacao = 1943, Autor = "Antoine de Saint-Exupéry", Paginas = 96 }
         },
         {
-            2, new Revista{ Id = 2, Titulo = "VOGUE", MesPublicacao =  5}
+            2, new Revista { Id = 2, Titulo = "VOGUE", AnoPublicacao = 2024, Edicao = 540, MesPublicacao = 5 }
         }
     };
 

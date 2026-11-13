@@ -3,41 +3,41 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblioteca Universitária</title>
 
-  <!-- Importar o css do bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe"
-    crossorigin="anonymous">
+  <!-- Importa o css do bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="front/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Bootstrap 6.0: Navbar
-       https://getbootstrap.com/docs/6.0/components/navbar/ -->
+  <!-- Bootstrap 6.0: Navbar -> Brand -> Text (As a heading)
+       https://getbootstrap.com/docs/6.0/components/navbar/#text -->
   <nav class="navbar bg-1 fg-2">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">Biblioteca Universitária</span>
     </div>
   </nav>
 
-  <main class="conteudo-principal">
+  <!-- Bootstrap 6.0: Containers -> Default container
+       https://getbootstrap.com/docs/6.0/layout/containers/ -->
+  <main class="container">
 
-    <!-- Bootstrap 6.0: Alert
-         https://getbootstrap.com/docs/6.0/components/alerts/ -->
+    <!-- Bootstrap 6.0: Alerts -> Default alert
+         https://getbootstrap.com/docs/6.0/components/alerts/#default-alert -->
     <div id="mensagem" class="alert d-none" role="alert"></div>
 
-    <!-- Bootstrap 6.0: Grid system
-         https://getbootstrap.com/docs/6.0/layout/grid/ -->
+    <!-- Bootstrap 6.0: Grid system -> Example (Equal-width)
+         https://getbootstrap.com/docs/6.0/layout/grid/#example -->
     <div class="container text-center">
       <div class="row">
 
-        <!-- Bootstrap 6.0: Card
-             https://getbootstrap.com/docs/6.0/components/card/ -->
+        <!-- Bootstrap 6.0: Cards -> Body
+             https://getbootstrap.com/docs/6.0/components/card/#body -->
         <div class="col">
           <div class="card">
             <div class="card-body">
@@ -47,8 +47,6 @@
           </div>
         </div>
 
-        <!-- Bootstrap 6.0: Card
-             https://getbootstrap.com/docs/6.0/components/card/ -->
         <div class="col">
           <div class="card">
             <div class="card-body">
@@ -58,8 +56,6 @@
           </div>
         </div>
 
-        <!-- Bootstrap 6.0: Card
-             https://getbootstrap.com/docs/6.0/components/card/ -->
         <div class="col">
           <div class="card">
             <div class="card-body">
@@ -72,29 +68,29 @@
       </div>
     </div>
 
-    <!-- Bootstrap 6.0: Card
-         https://getbootstrap.com/docs/6.0/components/card/ -->
+    <!-- Bootstrap 6.0: Cards -> Body
+         https://getbootstrap.com/docs/6.0/components/card/#body -->
     <section class="card">
       <div class="card-body">
 
         <h5 class="card-title">Materiais cadastrados</h5>
 
-        <!-- Bootstrap 6.0: Button
-             https://getbootstrap.com/docs/6.0/components/buttons/ -->
+        <!-- Bootstrap 6.0: Buttons -> Sizes
+             https://getbootstrap.com/docs/6.0/components/buttons/#sizes -->
         <button type="button" id="atualizar" class="btn-solid theme-primary btn-sm">
           Atualizar
         </button>
 
-        <!-- Bootstrap 6.0: Alert
-             https://getbootstrap.com/docs/6.0/components/alerts/ -->
-        <div id="detalhes" class="alert d-none">
-          <button type="button" id="fechar-detalhes" class="btn-close" aria-label="Fechar"></button>
+        <!-- Bootstrap 6.0: Alerts -> Dismiss
+             https://getbootstrap.com/docs/6.0/components/alerts/#dismiss -->
+        <div id="detalhes" class="alert d-none" role="alert">
           <span id="detalhes-texto"></span>
+          <button type="button" id="fechar-detalhes" class="btn-close ms-auto" aria-label="Close"></button>
         </div>
 
-        <!-- Bootstrap 6.0: Tables
-             https://getbootstrap.com/docs/6.0/content/tables/ -->
-        <div class="tabela-container">
+        <!-- Bootstrap 6.0: Tables -> Responsive tables -> Always responsive
+             https://getbootstrap.com/docs/6.0/content/tables/#always-responsive -->
+        <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
@@ -115,16 +111,15 @@
       </div>
     </section>
 
-    <!-- Bootstrap 6.0: Card
-         https://getbootstrap.com/docs/6.0/components/card/ -->
+    <!-- Bootstrap 6.0: Cards -> Body
+         https://getbootstrap.com/docs/6.0/components/card/#body -->
     <section class="card">
       <div class="card-body">
 
         <h5 class="card-title" id="form-titulo">Cadastrar material</h5>
 
-        <!-- Bootstrap 6.0: Forms
-             https://getbootstrap.com/docs/6.0/forms/overview/
-             https://getbootstrap.com/docs/6.0/forms/form-control/ -->
+        <!-- Bootstrap 6.0: Forms -> Form controls -> With form field & Select
+             https://getbootstrap.com/docs/6.0/forms/form-control/#with-form-field -->
         <form id="form" novalidate>
 
           <div class="form-field">
@@ -165,8 +160,8 @@
             <input type="number" id="mes" class="form-control">
           </div>
 
-          <!-- Bootstrap 6.0: Buttons
-               https://getbootstrap.com/docs/6.0/components/buttons/ -->
+          <!-- Bootstrap 6.0: Buttons -> Variants
+               https://getbootstrap.com/docs/6.0/components/buttons/#variants -->
           <button type="submit" class="btn-solid theme-primary">Salvar</button>
           <button type="button" id="cancelar" class="btn-outline theme-secondary d-none">
             Cancelar edição
@@ -178,15 +173,14 @@
 
   </main>
 
-  <!-- Bootstrap 6.0: JavaScript CDN
-       https://getbootstrap.com/docs/6.0/guides/quickstart/ -->
-  <script type="module"
-    src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"
+  <!-- Importa o js do bootstrap-->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL"
     crossorigin="anonymous"></script>
 
-  <!-- JavaScript próprio -->
+  <!-- Conecta o js -->
   <script src="script.js"></script>
 
 </body>
+
 </html>

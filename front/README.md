@@ -18,4 +18,6 @@ Foi desenvolvido um sistema de gerenciamento de uma biblioteca universitária. A
 - 
 
 ## Quais endpoints foram consumidos?
-Usamos GET (consulta de dados), POST (cadastro de novas informações), PUT (atualiza os materiais) e DELETE (exclui informações)
+Usamos GET (consulta de dados), POST (cadastro de novas informações), PUT (atualiza os materiais) e DELETE (exclui informações).
+
+## Como o front-end foi organizado?

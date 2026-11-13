@@ -1,7 +1,6 @@
-// troque a porta pela que aparece no Swagger
 const API_URL = "http://localhost:5217/api/Materiais";
 
-const formulario = document.querySelector("#form");
+const form = document.querySelector("#form");
 const lista = document.querySelector("#lista");
 const mensagem = document.querySelector("#mensagem");
 const detalhes = document.querySelector("#detalhes");
@@ -12,77 +11,59 @@ const autor = document.querySelector("#autor");
 const paginas = document.querySelector("#paginas");
 const edicao = document.querySelector("#edicao");
 const mes = document.querySelector("#mes");
+const cancelar = document.querySelector("#cancelar");
 
 let materiais = [];
 let idEditando = null;
 
-const ehLivro = m => Boolean(m.autor);
-
-function mostrarMensagem(texto, tipoAlerta) {
+function mostrarMensagem(texto, tema) {
   mensagem.textContent = texto;
-  mensagem.classList.remove("d-none", "alert-success", "alert-danger");
-  mensagem.classList.add("alert-" + tipoAlerta);
-  setTimeout(() => mensagem.classList.add("d-none"), 4000);
+  mensagem.className = "alert theme-" + tema;
 }
 
-function tratarErro(erro) {
-  const semApi = erro.message === "Failed to fetch";
-  mostrarMensagem(semApi ? "Não consegui conectar na API. Ela está rodando?" : erro.message, "danger");
+// GET /api/Materiais
+function carregarMateriais() {
+  fetch(API_URL)
+    .then(resposta => {
+      if (!resposta.ok) throw Error();
+      return resposta.json();
+    })
+    .then(dados => {
+      materiais = dados;
+      mostrarMateriais();
+    })
+    .catch(() => mostrarMensagem("Erro ao carregar os materiais.", "danger"));
 }
 
-// faz o fetch e devolve o texto da resposta; se response.ok for falso, lança um erro
-function chamarApi(caminho, metodo, corpo) {
-  return fetch(API_URL + caminho, {
-    method: metodo,
-    headers: { "Content-Type": "application/json" },
-    body: corpo ? JSON.stringify(corpo) : undefined
-  }).then(resposta => resposta.text().then(texto => {
-    if (resposta.status === 404) { throw Error("Material não encontrado."); }
-    if (!resposta.ok) { throw Error(texto && texto.length < 150 ? texto : `Erro ${resposta.status} na API.`); }
-    return texto;
-  }));
-}
-
-function carregar() {
-  chamarApi("", "GET").then(texto => {
-    materiais = JSON.parse(texto);
-    mostrarLista();
-  }).catch(tratarErro);
-}
-
-function mostrarLista() {
+function mostrarMateriais() {
   lista.textContent = "";
   document.querySelector("#vazio").classList.toggle("d-none", materiais.length > 0);
 
   let livros = 0;
   materiais.forEach(function (m) {
-    const livro = ehLivro(m);
-    if (livro) { livros++; }
-    const detalhe = livro
-      ? `${m.autor}, ${m.numeroPaginas} páginas`
-      : `Edição ${m.numeroEdicao}, mês ${m.mesPublicacao}`;
+    const ehLivro = m.tipo === "Livro";
+    if (ehLivro) { livros++; }
+    const info = ehLivro ? `${m.autor}, ${m.paginas} páginas` : `Edição ${m.edicao}, mês ${m.mesPublicacao}`;
 
     const linha = document.createElement("tr");
-    [m.id, m.titulo, m.anoPublicacao, livro ? "Livro" : "Revista", detalhe].forEach(function (valor) {
+    [m.id, m.titulo, m.anoPublicacao, m.tipo, info].forEach(function (texto) {
       const celula = document.createElement("td");
-      celula.textContent = valor;
+      celula.textContent = texto;
       linha.appendChild(celula);
     });
 
-    // botões de ação: texto, classe do Bootstrap e função que cada um chama
     const acoes = document.createElement("td");
     [
-      ["Ver", "btn-primary", () => ver("/" + m.id)],
-      ["Editar", "btn-primary", () => editar(m.id)],
-      ["Prazo", "btn-primary", () => ver("/" + m.id + "/descricao")],
-      ["Emprestar", "btn-success", () => emprestar(m.id)],
-      ["Excluir", "btn-danger", () => excluir(m.id)]
+      ["Ver", () => verDetalhes("/" + m.id)],
+      ["Prazo", () => verDetalhes("/" + m.id + "/descricao")],
+      ["Editar", () => prepararEdicao(m)],
+      ["Emprestar", () => emprestarMaterial(m.id)],
+      ["Excluir", () => excluirMaterial(m.id)]
     ].forEach(function (acao) {
       const botao = document.createElement("button");
-      botao.type = "button";
       botao.textContent = acao[0];
-      botao.className = "btn btn-sm me-1 mb-1 " + acao[1];
-      botao.addEventListener("click", acao[2]);
+      botao.className = "btn-outline btn-sm mb-1";
+      botao.addEventListener("click", acao[1]);
       acoes.appendChild(botao);
     });
     linha.appendChild(acoes);
@@ -94,106 +75,108 @@ function mostrarLista() {
   document.querySelector("#revistas").textContent = materiais.length - livros;
 }
 
-// mostra só os campos do tipo escolhido
-function trocarTipo() {
-  const livro = tipo.value === "livro";
-  document.querySelectorAll(".livro").forEach(campo => campo.classList.toggle("d-none", !livro));
-  document.querySelectorAll(".revista").forEach(campo => campo.classList.toggle("d-none", livro));
-}
-
-function limpar() {
-  formulario.reset();
-  formulario.querySelectorAll(".is-invalid").forEach(campo => campo.classList.remove("is-invalid"));
-  idEditando = null;
-  tipo.disabled = false;
-  trocarTipo();
-  document.querySelector("#form-titulo").textContent = "Cadastrar material";
-  document.querySelector("#cancelar").classList.add("d-none");
-}
-
-// deixa o campo vermelho se estiver inválido e devolve true ou false
-function validar(campo, invalido) {
-  campo.classList.toggle("is-invalid", invalido);
-  return !invalido;
-}
-
-// o mesmo formulário cadastra (POST) e edita (PUT)
-formulario.addEventListener("submit", function (evento) {
+// POST (cadastrar) e PUT (editar)
+form.addEventListener("submit", function (evento) {
   evento.preventDefault();
 
-  let valido = true;
   const dados = { titulo: titulo.value.trim(), anoPublicacao: Number(ano.value) };
-
-  if (!validar(titulo, dados.titulo === "")) { valido = false; }
-  if (!validar(ano, dados.anoPublicacao < 1000 || dados.anoPublicacao > new Date().getFullYear())) { valido = false; }
+  let valido = dados.titulo !== "" && dados.anoPublicacao > 0;
 
   if (tipo.value === "livro") {
     dados.autor = autor.value.trim();
-    dados.numeroPaginas = Number(paginas.value);
-    if (!validar(autor, dados.autor === "")) { valido = false; }
-    if (!validar(paginas, dados.numeroPaginas <= 0)) { valido = false; }
+    dados.paginas = Number(paginas.value);
+    valido = valido && dados.autor !== "" && dados.paginas > 0;
   } else {
-    dados.numeroEdicao = Number(edicao.value);
+    dados.edicao = Number(edicao.value);
     dados.mesPublicacao = Number(mes.value);
-    if (!validar(edicao, dados.numeroEdicao <= 0)) { valido = false; }
-    if (!validar(mes, dados.mesPublicacao < 1 || dados.mesPublicacao > 12)) { valido = false; }
+    valido = valido && dados.edicao > 0 && dados.mesPublicacao >= 1 && dados.mesPublicacao <= 12;
   }
 
   if (!valido) {
-    mostrarMensagem("Corrija os campos em vermelho.", "danger");
+    mostrarMensagem("Preencha todos os campos corretamente.", "danger");
     return;
   }
 
-  const caminho = "/" + tipo.value + (idEditando ? "/" + idEditando : "");
-  chamarApi(caminho, idEditando ? "PUT" : "POST", dados).then(() => {
-    mostrarMensagem(idEditando ? "Material atualizado!" : "Material cadastrado!", "success");
-    limpar();
-    carregar();
-  }).catch(tratarErro);
+  const url = `${API_URL}/${tipo.value}` + (idEditando ? `/${idEditando}` : "");
+  fetch(url, {
+    method: idEditando ? "PUT" : "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados)
+  })
+    .then(resposta => {
+      if (!resposta.ok) throw Error();
+      mostrarMensagem(idEditando ? "Material atualizado!" : "Material cadastrado!", "success");
+      limparFormulario();
+      carregarMateriais();
+    })
+    .catch(() => mostrarMensagem("Não foi possível salvar o material.", "danger"));
 });
 
-function editar(id) {
-  const m = materiais.find(item => item.id == id);
+function prepararEdicao(m) {
   idEditando = m.id;
-  tipo.value = ehLivro(m) ? "livro" : "revista";
+  tipo.value = m.tipo === "Livro" ? "livro" : "revista";
   tipo.disabled = true;
+  trocarCampos();
   titulo.value = m.titulo;
   ano.value = m.anoPublicacao;
   autor.value = m.autor ?? "";
-  paginas.value = m.numeroPaginas ?? "";
-  edicao.value = m.numeroEdicao ?? "";
+  paginas.value = m.paginas ?? "";
+  edicao.value = m.edicao ?? "";
   mes.value = m.mesPublicacao ?? "";
-  trocarTipo();
   document.querySelector("#form-titulo").textContent = "Editar material";
-  document.querySelector("#cancelar").classList.remove("d-none");
-  formulario.scrollIntoView({ behavior: "smooth" });
+  cancelar.classList.remove("d-none");
 }
 
-function excluir(id) {
-  if (!confirm("Tem certeza que quer excluir este material?")) { return; }
-
-  chamarApi("/" + id, "DELETE").then(() => {
-    mostrarMensagem("Material excluído!", "success");
-  }).catch(tratarErro).then(carregar);
+// DELETE /api/Materiais/{id}
+function excluirMaterial(id) {
+  if (!confirm("Tem certeza que quer excluir este material?")) return;
+  fetch(`${API_URL}/${id}`, { method: "DELETE" }).then(resposta => {
+    mostrarMensagem(resposta.ok ? "Material excluído!" : "Material não encontrado.", resposta.ok ? "success" : "danger");
+    carregarMateriais();
+  });
 }
 
-// GET /{id} e GET /{id}/descricao: mostra o que a API devolveu na caixinha de detalhes
-function ver(caminho) {
-  chamarApi(caminho, "GET").then(texto => {
-    document.querySelector("#detalhes-texto").textContent = texto;
-    detalhes.classList.remove("d-none");
-  }).catch(tratarErro);
+// GET /api/Materiais/{id} e GET /api/Materiais/{id}/descricao
+function verDetalhes(caminho) {
+  fetch(API_URL + caminho)
+    .then(resposta => {
+      if (!resposta.ok) throw Error();
+      return resposta.json();
+    })
+    .then(dados => {
+      document.querySelector("#detalhes-texto").textContent = JSON.stringify(dados, null, 2);
+      detalhes.classList.remove("d-none");
+    })
+    .catch(() => mostrarMensagem("Material não encontrado.", "danger"));
 }
 
-function emprestar(id) {
-  chamarApi("/" + id + "/emprestar", "POST").then(texto => {
-    mostrarMensagem(texto || "Empréstimo realizado!", "success");
-  }).catch(tratarErro);
+// POST /api/Materiais/{id}/emprestar
+function emprestarMaterial(id) {
+  fetch(`${API_URL}/${id}/emprestar`, { method: "POST" })
+    .then(resposta => resposta.json().then(dados => {
+      mostrarMensagem(resposta.ok ? dados.mensagem : dados.erro, resposta.ok ? "success" : "danger");
+    }))
+    .catch(() => mostrarMensagem("Material não encontrado.", "danger"));
 }
 
-tipo.addEventListener("change", trocarTipo);
-document.querySelector("#cancelar").addEventListener("click", limpar);
-document.querySelector("#atualizar").addEventListener("click", carregar);
+function trocarCampos() {
+  const ehLivro = tipo.value === "livro";
+  document.querySelectorAll(".livro").forEach(campo => campo.classList.toggle("d-none", !ehLivro));
+  document.querySelectorAll(".revista").forEach(campo => campo.classList.toggle("d-none", ehLivro));
+}
+
+function limparFormulario() {
+  form.reset();
+  idEditando = null;
+  tipo.disabled = false;
+  trocarCampos();
+  document.querySelector("#form-titulo").textContent = "Cadastrar material";
+  cancelar.classList.add("d-none");
+}
+
+tipo.addEventListener("change", trocarCampos);
+cancelar.addEventListener("click", limparFormulario);
+document.querySelector("#atualizar").addEventListener("click", carregarMateriais);
 document.querySelector("#fechar-detalhes").addEventListener("click", () => detalhes.classList.add("d-none"));
 
-carregar();
+carregarMateriais();

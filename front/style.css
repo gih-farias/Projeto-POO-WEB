@@ -1,59 +1,92 @@
 :root {
-  --verde: #4a7c59;
-  --verde-escuro: #365c43;
-  --bege: #f5efe3;
-  --bege-escuro: #e6d9bf;
-
-  /* troca as cores padrão do Bootstrap (primary, success e warning) pelas nossas */
-  --bs-primary-rgb: 74, 124, 89;
-  --bs-success-rgb: 54, 92, 67;
-  --bs-warning-rgb: 230, 217, 191;
+  color-scheme: light;
+  --verde: #1b4332;
+  --verde-claro: #2d6a4f;
+  --bege: #f8f4e8;
+  --dourado: #d4a017;
 }
 
 body {
   background-color: var(--bege);
-  color: #2f3a30;
+  color: #1f2922;
 }
 
 .navbar {
-  background-color: var(--verde);
+  background-color: var(--verde) !important;
+  border-bottom: 4px solid var(--dourado);
+}
+
+.navbar-brand {
+  color: var(--bege) !important;
+  font-weight: bold;
+}
+
+.navbar .nav-link {
+  color: var(--bege) !important;
+}
+
+main.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-block: 24px;
 }
 
 .card {
-  border-color: #e0d3b6;
+  background-color: #fff;
+  color: #1f2922;
+  border-top: 4px solid var(--dourado);
 }
 
-.table > thead > tr > th {
-  background-color: var(--bege-escuro);
+.card-title {
+  color: var(--verde);
+  font-weight: bold;
 }
 
-/* caixinha de detalhes */
-#detalhes {
-  background-color: var(--bege-escuro);
-  border-color: #d6c7a6;
-  color: #3d3422;
-  white-space: pre-wrap;
-}
-
-/* os botões do Bootstrap não usam as variáveis acima, então mudo aqui */
-.btn-primary {
+.btn-solid.theme-primary {
   --bs-btn-bg: var(--verde);
+  --bs-btn-color: var(--bege);
   --bs-btn-border-color: var(--verde);
-  --bs-btn-hover-bg: var(--verde-escuro);
-  --bs-btn-hover-border-color: var(--verde-escuro);
-  --bs-btn-active-bg: var(--verde-escuro);
-  --bs-btn-active-border-color: var(--verde-escuro);
+  --bs-btn-hover-bg: var(--verde-claro);
+  --bs-btn-hover-border-color: var(--verde-claro);
 }
 
-.btn-success {
-  --bs-btn-bg: var(--verde-escuro);
-  --bs-btn-border-color: var(--verde-escuro);
-  --bs-btn-hover-bg: #2a4834;
-  --bs-btn-hover-border-color: #2a4834;
+#lista button {
+  --bs-btn-bg: var(--bege);
+  --bs-btn-color: var(--verde);
+  --bs-btn-border-color: var(--dourado);
+  --bs-btn-hover-bg: var(--dourado);
+  --bs-btn-hover-color: #fff;
+  margin-right: 4px;
 }
 
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--verde);
-  box-shadow: 0 0 0 0.2rem rgba(74, 124, 89, 0.25);
+.table {
+  color: #1f2922;
+}
+
+.table thead th {
+  background-color: var(--verde);
+  color: var(--bege);
+}
+
+.form-field {
+  margin-bottom: 14px;
+}
+
+.form-control {
+  background-color: #fff;
+  color: #1f2922;
+}
+
+.form-control:disabled {
+  background-color: #efe9da;
+  color: #555;
+  opacity: 1;
+}
+
+#detalhes {
+  background-color: #f3ebd9;
+  border-color: var(--dourado);
+  color: var(--verde);
+  white-space: pre-wrap;
 }
