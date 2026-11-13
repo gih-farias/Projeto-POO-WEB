@@ -5,6 +5,7 @@
 *Giovanna Farias | 114.113*
 *Murillo Soares | 114.101*
 *Willian Kauê | 114.091*
+*Maria Clara | 114.105*
 
 ## Descrição do sistema
 Sistema de *gerenciamento de biblioteca* que permite o cadastro, listagem, busca, atualização e exclusão de materiais do acervo, utilizando herança, abstração, polimorfismo, interface, Repository Pattern, injeção de dependência e Singleton.

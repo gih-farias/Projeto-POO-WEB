@@ -1,60 +1,59 @@
-body {
-  background-color: #f3f4f6;
+:root {
+  --verde: #4a7c59;
+  --verde-escuro: #365c43;
+  --bege: #f5efe3;
+  --bege-escuro: #e6d9bf;
+
+  /* troca as cores padrão do Bootstrap (primary, success e warning) pelas nossas */
+  --bs-primary-rgb: 74, 124, 89;
+  --bs-success-rgb: 54, 92, 67;
+  --bs-warning-rgb: 230, 217, 191;
 }
 
+body {
+  background-color: var(--bege);
+  color: #2f3a30;
+}
 
 .navbar {
-  background-color: #2f4858;
+  background-color: var(--verde);
 }
 
-/* mensagem fixa no topo pra aparecer mesmo com a página rolada */
-#mensagem {
-  position: fixed;
-  top: 70px;
-  left: 16px;
-  right: 16px;
-  max-width: 480px;
-  margin-left: auto;
-  z-index: 2000;
+.card {
+  border-color: #e0d3b6;
 }
 
-
-.card-resumo {
-  border: 0;
-  border-left: 5px solid #2f4858;
+.table > thead > tr > th {
+  background-color: var(--bege-escuro);
 }
 
-
-.borda-total {
-  border-left-color: #2f4858;
+/* caixinha de detalhes */
+#detalhes {
+  background-color: var(--bege-escuro);
+  border-color: #d6c7a6;
+  color: #3d3422;
+  white-space: pre-wrap;
 }
 
-
-.borda-livros {
-  border-left-color: #33658a;
+/* os botões do Bootstrap não usam as variáveis acima, então mudo aqui */
+.btn-primary {
+  --bs-btn-bg: var(--verde);
+  --bs-btn-border-color: var(--verde);
+  --bs-btn-hover-bg: var(--verde-escuro);
+  --bs-btn-hover-border-color: var(--verde-escuro);
+  --bs-btn-active-bg: var(--verde-escuro);
+  --bs-btn-active-border-color: var(--verde-escuro);
 }
 
-
-.borda-revistas {
-  border-left-color: #f6ae2d;
+.btn-success {
+  --bs-btn-bg: var(--verde-escuro);
+  --bs-btn-border-color: var(--verde-escuro);
+  --bs-btn-hover-bg: #2a4834;
+  --bs-btn-hover-border-color: #2a4834;
 }
 
-
-.numero {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-
-.table th {
-  white-space: nowrap;
-}
-
-
-/* deixa os botões de ação quebrarem de linha em tela pequena */
-.acoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  min-width: 190px;
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 0.2rem rgba(74, 124, 89, 0.25);
 }
