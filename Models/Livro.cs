@@ -16,7 +16,7 @@ public class Livro : MaterialBiblioteca, IEmprestimo
 
     public string Emprestar()
     {
-        return $"O livro {Titulo} pode ser emprestado por {CalcularPrazo()} dias.";
+        return $"O livro '{Titulo}' pode ser emprestado por {CalcularPrazo()} dias.";
     }
 }
 
