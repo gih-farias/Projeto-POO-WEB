@@ -1,60 +1,92 @@
-body {
-  background-color: #f3f4f6;
+:root {
+  color-scheme: light;
+  --verde: #1b4332;
+  --verde-claro: #2d6a4f;
+  --bege: #f8f4e8;
+  --dourado: #d4a017;
 }
 
+body {
+  background-color: var(--bege);
+  color: #1f2922;
+}
 
 .navbar {
-  background-color: #2f4858;
+  background-color: var(--verde) !important;
+  border-bottom: 4px solid var(--dourado);
 }
 
-/* mensagem fixa no topo pra aparecer mesmo com a página rolada */
-#mensagem {
-  position: fixed;
-  top: 70px;
-  left: 16px;
-  right: 16px;
-  max-width: 480px;
-  margin-left: auto;
-  z-index: 2000;
+.navbar-brand {
+  color: var(--bege) !important;
+  font-weight: bold;
 }
 
-
-.card-resumo {
-  border: 0;
-  border-left: 5px solid #2f4858;
+.navbar .nav-link {
+  color: var(--bege) !important;
 }
 
-
-.borda-total {
-  border-left-color: #2f4858;
-}
-
-
-.borda-livros {
-  border-left-color: #33658a;
-}
-
-
-.borda-revistas {
-  border-left-color: #f6ae2d;
-}
-
-
-.numero {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-
-.table th {
-  white-space: nowrap;
-}
-
-
-/* deixa os botões de ação quebrarem de linha em tela pequena */
-.acoes {
+main.container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  min-width: 190px;
+  flex-direction: column;
+  gap: 20px;
+  padding-block: 24px;
+}
+
+.card {
+  background-color: #fff;
+  color: #1f2922;
+  border-top: 4px solid var(--dourado);
+}
+
+.card-title {
+  color: var(--verde);
+  font-weight: bold;
+}
+
+.btn-solid.theme-primary {
+  --bs-btn-bg: var(--verde);
+  --bs-btn-color: var(--bege);
+  --bs-btn-border-color: var(--verde);
+  --bs-btn-hover-bg: var(--verde-claro);
+  --bs-btn-hover-border-color: var(--verde-claro);
+}
+
+#lista button {
+  --bs-btn-bg: var(--bege);
+  --bs-btn-color: var(--verde);
+  --bs-btn-border-color: var(--dourado);
+  --bs-btn-hover-bg: var(--dourado);
+  --bs-btn-hover-color: #fff;
+  margin-right: 4px;
+}
+
+.table {
+  color: #1f2922;
+}
+
+.table thead th {
+  background-color: var(--verde);
+  color: var(--bege);
+}
+
+.form-field {
+  margin-bottom: 14px;
+}
+
+.form-control {
+  background-color: #fff;
+  color: #1f2922;
+}
+
+.form-control:disabled {
+  background-color: #efe9da;
+  color: #555;
+  opacity: 1;
+}
+
+#detalhes {
+  background-color: #f3ebd9;
+  border-color: var(--dourado);
+  color: var(--verde);
+  white-space: pre-wrap;
 }
