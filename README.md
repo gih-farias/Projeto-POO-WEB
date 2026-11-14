@@ -30,7 +30,7 @@ Antes de começar, você vai precisar ter instalado:
 $ git clone https://github.com/gih-farias/Projeto-POO-WEB.git
 
 # 2. Acesse a pasta do projeto
-$ cd MinhaBiblioteca
+$ cd Projeto-POO-WEB
 
 # 3. Restaure as dependências do projeto
 $ dotnet restore
