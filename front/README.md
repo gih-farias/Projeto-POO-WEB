@@ -15,7 +15,7 @@ Foi desenvolvido um sistema de gerenciamento de uma biblioteca universitária. A
 3. Abra o arquivo em um navegador.
 
 ## Qual URL da API foi utilizada?
-- 
+-  API_URL = "http://localhost:5217/api/Materiais
 
 ## Quais endpoints foram consumidos?
 Usamos GET (consulta de dados), POST (cadastro de novas informações), PUT (atualiza os materiais) e DELETE (exclui informações).

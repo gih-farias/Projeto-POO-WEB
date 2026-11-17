@@ -1,186 +1,199 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biblioteca Universitária</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biblioteca Universitária</title>
+    <!-- Importa o css do bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe"
+      crossorigin="anonymous"
+    />
 
-  <!-- Importa o css do bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-  <!-- Bootstrap 6.0: Navbar -> Brand -> Text (As a heading)
+  <body>
+    <!-- Bootstrap 6.0: Navbar -> Brand -> Text (As a heading)
        https://getbootstrap.com/docs/6.0/components/navbar/#text -->
-  <nav class="navbar bg-1 fg-2">
-    <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">Biblioteca Universitária</span>
-    </div>
-  </nav>
+    <nav class="navbar bg-1 fg-2">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Biblioteca Universitária</span>
+      </div>
+    </nav>
 
-  <!-- Bootstrap 6.0: Containers -> Default container
+    <!-- Bootstrap 6.0: Containers -> Default container
        https://getbootstrap.com/docs/6.0/layout/containers/ -->
-  <main class="container">
-
-    <!-- Bootstrap 6.0: Alerts -> Default alert
+    <main class="container">
+      <!-- Bootstrap 6.0: Alerts -> Default alert
          https://getbootstrap.com/docs/6.0/components/alerts/#default-alert -->
-    <div id="mensagem" class="alert d-none" role="alert"></div>
+      <div id="mensagem" class="alert d-none" role="alert"></div>
 
-    <!-- Bootstrap 6.0: Grid system -> Example (Equal-width)
+      <!-- Bootstrap 6.0: Grid system -> Example (Equal-width)
          https://getbootstrap.com/docs/6.0/layout/grid/#example -->
-    <div class="container text-center">
-      <div class="row">
-
-        <!-- Bootstrap 6.0: Cards -> Body
+      <div class="container text-center">
+        <div class="row">
+          <!-- Bootstrap 6.0: Cards -> Body
              https://getbootstrap.com/docs/6.0/components/card/#body -->
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title" id="total">0</h5>
-              Total
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" id="total">0</h5>
+                Total
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" id="livros">0</h5>
+                Livros
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" id="revistas">0</h5>
+                Revistas
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title" id="livros">0</h5>
-              Livros
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title" id="revistas">0</h5>
-              Revistas
-            </div>
-          </div>
-        </div>
-
       </div>
-    </div>
 
-    <!-- Bootstrap 6.0: Cards -> Body
+      <!-- Bootstrap 6.0: Cards -> Body
          https://getbootstrap.com/docs/6.0/components/card/#body -->
-    <section class="card">
-      <div class="card-body">
+      <section class="card">
+        <div class="card-body">
+          <h5 class="card-title">Materiais cadastrados</h5>
 
-        <h5 class="card-title">Materiais cadastrados</h5>
-
-        <!-- Bootstrap 6.0: Buttons -> Sizes
+          <!-- Bootstrap 6.0: Buttons -> Sizes
              https://getbootstrap.com/docs/6.0/components/buttons/#sizes -->
-        <button type="button" id="atualizar" class="btn-solid theme-primary btn-sm">
-          Atualizar
-        </button>
-
-        <!-- Bootstrap 6.0: Alerts -> Dismiss
-             https://getbootstrap.com/docs/6.0/components/alerts/#dismiss -->
-        <div id="detalhes" class="alert d-none" role="alert">
-          <span id="detalhes-texto"></span>
-          <button type="button" id="fechar-detalhes" class="btn-close ms-auto" aria-label="Close"></button>
-        </div>
-
-        <!-- Bootstrap 6.0: Tables -> Responsive tables -> Always responsive
-             https://getbootstrap.com/docs/6.0/content/tables/#always-responsive -->
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Título</th>
-                <th scope="col">Ano</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Detalhes</th>
-                <th scope="col">Ações</th>
-              </tr>
-            </thead>
-            <tbody id="lista"></tbody>
-          </table>
-        </div>
-
-        <p id="vazio" class="d-none">Nenhum material cadastrado.</p>
-
-      </div>
-    </section>
-
-    <!-- Bootstrap 6.0: Cards -> Body
-         https://getbootstrap.com/docs/6.0/components/card/#body -->
-    <section class="card">
-      <div class="card-body">
-
-        <h5 class="card-title" id="form-titulo">Cadastrar material</h5>
-
-        <!-- Bootstrap 6.0: Forms -> Form controls -> With form field & Select
-             https://getbootstrap.com/docs/6.0/forms/form-control/#with-form-field -->
-        <form id="form" novalidate>
-
-          <div class="form-field">
-            <label for="tipo" class="form-label">Tipo</label>
-            <select id="tipo" class="form-control">
-              <option value="livro">Livro</option>
-              <option value="revista">Revista</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="titulo" class="form-label">Título</label>
-            <input type="text" id="titulo" class="form-control">
-          </div>
-
-          <div class="form-field">
-            <label for="ano" class="form-label">Ano de publicação</label>
-            <input type="number" id="ano" class="form-control">
-          </div>
-
-          <div class="form-field livro">
-            <label for="autor" class="form-label">Autor</label>
-            <input type="text" id="autor" class="form-control">
-          </div>
-
-          <div class="form-field livro">
-            <label for="paginas" class="form-label">Número de páginas</label>
-            <input type="number" id="paginas" class="form-control">
-          </div>
-
-          <div class="form-field revista d-none">
-            <label for="edicao" class="form-label">Número da edição</label>
-            <input type="number" id="edicao" class="form-control">
-          </div>
-
-          <div class="form-field revista d-none">
-            <label for="mes" class="form-label">Mês (1 a 12)</label>
-            <input type="number" id="mes" class="form-control">
-          </div>
-
-          <!-- Bootstrap 6.0: Buttons -> Variants
-               https://getbootstrap.com/docs/6.0/components/buttons/#variants -->
-          <button type="submit" class="btn-solid theme-primary">Salvar</button>
-          <button type="button" id="cancelar" class="btn-outline theme-secondary d-none">
-            Cancelar edição
+          <button
+            type="button"
+            id="buscar"
+            class="btn-solid theme-primary btn-sm"
+          >
+            Buscar
           </button>
+          <div id="status" class="alert d-none mt-3" role="status"></div>
+          <div id="saida" class="bg-dark text-white rounded p-3 mt-3">
+            Buscando ...
+          </div>
 
-        </form>
-      </div>
-    </section>
+          <!-- Bootstrap 6.0: Alerts -> Dismiss
+             https://getbootstrap.com/docs/6.0/components/alerts/#dismiss -->
+          <div id="detalhes" class="alert d-none" role="alert">
+            <span id="detalhes-texto"></span>
+            <button
+              type="button"
+              id="fechar-detalhes"
+              class="btn-close ms-auto"
+              aria-label="Close"
+            ></button>
+          </div>
 
-  </main>
+          <!-- Bootstrap 6.0: Tables -> Responsive tables -> Always responsive
+             https://getbootstrap.com/docs/6.0/content/tables/#always-responsive -->
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Título</th>
+                  <th scope="col">Ano</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Detalhes</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="lista"></tbody>
+            </table>
+          </div>
 
-  <!-- Importa o js do bootstrap-->
-  <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL"
-    crossorigin="anonymous"></script>
+          <p id="vazio" class="d-none">Nenhum material cadastrado.</p>
+        </div>
+      </section>
 
-  <!-- Conecta o js -->
-  <script src="script.js"></script>
+      <!-- Bootstrap 6.0: Cards -> Body
+         https://getbootstrap.com/docs/6.0/components/card/#body -->
+      <section class="card">
+        <div class="card-body">
+          <h5 class="card-title" id="form-titulo">Cadastrar material</h5>
 
-</body>
+          <!-- Bootstrap 6.0: Forms -> Form controls -> With form field & Select
+             https://getbootstrap.com/docs/6.0/forms/form-control/#with-form-field -->
+          <form id="form" novalidate>
+            <div class="form-field">
+              <label for="tipo" class="form-label">Tipo</label>
+              <select id="tipo" class="form-control">
+                <option value="livro">Livro</option>
+                <option value="revista">Revista</option>
+              </select>
+            </div>
 
+            <div class="form-field">
+              <label for="titulo" class="form-label">Título</label>
+              <input type="text" id="titulo" class="form-control" />
+            </div>
+
+            <div class="form-field">
+              <label for="ano" class="form-label">Ano de publicação</label>
+              <input type="number" id="ano" class="form-control" />
+            </div>
+
+            <div class="form-field livro">
+              <label for="autor" class="form-label">Autor</label>
+              <input type="text" id="autor" class="form-control" />
+            </div>
+
+            <div class="form-field livro">
+              <label for="paginas" class="form-label">Número de páginas</label>
+              <input type="number" id="paginas" class="form-control" />
+            </div>
+
+            <div class="form-field revista d-none">
+              <label for="edicao" class="form-label">Número da edição</label>
+              <input type="number" id="edicao" class="form-control" />
+            </div>
+
+            <div class="form-field revista d-none">
+              <label for="mes" class="form-label">Mês (1 a 12)</label>
+              <input type="number" id="mes" class="form-control" />
+            </div>
+
+            <!-- Bootstrap 6.0: Buttons -> Variants
+               https://getbootstrap.com/docs/6.0/components/buttons/#variants -->
+            <button type="submit" class="btn-solid theme-primary">
+              Salvar
+            </button>
+            <button
+              type="button"
+              id="cancelar"
+              class="btn-outline theme-secondary d-none"
+            >
+              Cancelar edição
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Importa o js do bootstrap-->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Conecta o js -->
+    <script src="script.js"></script>
+  </body>
 </html>
