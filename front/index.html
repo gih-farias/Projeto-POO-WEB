@@ -15,29 +15,24 @@
 
 <body>
 
-  <!-- Bootstrap 6.0: Navbar -> Brand -> Text (As a heading)
-       https://getbootstrap.com/docs/6.0/components/navbar/#text -->
+  <!-- Bootstrap 6.0: Navbar -> Brand -> Text (As a heading) -->
   <nav class="navbar bg-1 fg-2">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">Biblioteca Universitária</span>
     </div>
   </nav>
 
-  <!-- Bootstrap 6.0: Containers -> Default container
-       https://getbootstrap.com/docs/6.0/layout/containers/ -->
+  <!-- Bootstrap 6.0: Containers -> Default container -->
   <main class="container">
 
-    <!-- Bootstrap 6.0: Alerts -> Default alert
-         https://getbootstrap.com/docs/6.0/components/alerts/#default-alert -->
+    <!-- Bootstrap 6.0: Alerts -> Default alert -->
     <div id="mensagem" class="alert d-none" role="alert"></div>
 
-    <!-- Bootstrap 6.0: Grid system -> Example (Equal-width)
-         https://getbootstrap.com/docs/6.0/layout/grid/#example -->
+    <!-- Bootstrap 6.0: Grid system -> Example (Equal-width) -->
     <div class="container text-center">
       <div class="row">
 
-        <!-- Bootstrap 6.0: Cards -> Body
-             https://getbootstrap.com/docs/6.0/components/card/#body -->
+        <!-- Bootstrap 6.0: Cards -> Body -->
         <div class="col">
           <div class="card">
             <div class="card-body">
@@ -68,28 +63,24 @@
       </div>
     </div>
 
-    <!-- Bootstrap 6.0: Cards -> Body
-         https://getbootstrap.com/docs/6.0/components/card/#body -->
+    <!-- Bootstrap 6.0: Cards -> Body -->
     <section class="card">
       <div class="card-body">
 
         <h5 class="card-title">Materiais cadastrados</h5>
 
-        <!-- Bootstrap 6.0: Buttons -> Sizes
-             https://getbootstrap.com/docs/6.0/components/buttons/#sizes -->
-        <button type="button" id="atualizar" class="btn-solid theme-primary btn-sm">
-          Atualizar
+        <!-- Bootstrap 6.0: Buttons -> Sizes -->
+        <button type="button" id="buscar" class="btn-solid theme-primary btn-sm">
+          Buscar
         </button>
 
-        <!-- Bootstrap 6.0: Alerts -> Dismiss
-             https://getbootstrap.com/docs/6.0/components/alerts/#dismiss -->
+        <!-- Bootstrap 6.0: Alerts -> Dismiss -->
         <div id="detalhes" class="alert d-none" role="alert">
           <span id="detalhes-texto"></span>
           <button type="button" id="fechar-detalhes" class="btn-close ms-auto" aria-label="Close"></button>
         </div>
 
-        <!-- Bootstrap 6.0: Tables -> Responsive tables -> Always responsive
-             https://getbootstrap.com/docs/6.0/content/tables/#always-responsive -->
+        <!-- Bootstrap 6.0: Tables -> Responsive tables -> Always responsive -->
         <div class="table-responsive">
           <table class="table">
             <thead>
@@ -111,15 +102,13 @@
       </div>
     </section>
 
-    <!-- Bootstrap 6.0: Cards -> Body
-         https://getbootstrap.com/docs/6.0/components/card/#body -->
+    <!-- Bootstrap 6.0: Cards -> Body -->
     <section class="card">
       <div class="card-body">
 
         <h5 class="card-title" id="form-titulo">Cadastrar material</h5>
 
-        <!-- Bootstrap 6.0: Forms -> Form controls -> With form field & Select
-             https://getbootstrap.com/docs/6.0/forms/form-control/#with-form-field -->
+        <!-- Bootstrap 6.0: Forms -> Form controls -> With form field & Select -->
         <form id="form" novalidate>
 
           <div class="form-field">
@@ -160,8 +149,7 @@
             <input type="number" id="mes" class="form-control">
           </div>
 
-          <!-- Bootstrap 6.0: Buttons -> Variants
-               https://getbootstrap.com/docs/6.0/components/buttons/#variants -->
+          <!-- Bootstrap 6.0: Buttons -> Variants -->
           <button type="submit" class="btn-solid theme-primary">Salvar</button>
           <button type="button" id="cancelar" class="btn-outline theme-secondary d-none">
             Cancelar edição

@@ -19,6 +19,7 @@ let idEditando = null;
 function mostrarMensagem(texto, tema) {
   mensagem.textContent = texto;
   mensagem.className = "alert theme-" + tema;
+  mensagem.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 // GET /api/Materiais
@@ -62,7 +63,7 @@ function mostrarMateriais() {
     ].forEach(function (acao) {
       const botao = document.createElement("button");
       botao.textContent = acao[0];
-      botao.className = "btn-outline btn-sm mb-1";
+      botao.className = "btn-outline theme-secondary btn-sm mb-1";
       botao.addEventListener("click", acao[1]);
       acoes.appendChild(botao);
     });
@@ -176,7 +177,7 @@ function limparFormulario() {
 
 tipo.addEventListener("change", trocarCampos);
 cancelar.addEventListener("click", limparFormulario);
-document.querySelector("#atualizar").addEventListener("click", carregarMateriais);
+document.querySelector("#buscar").addEventListener("click", carregarMateriais);
 document.querySelector("#fechar-detalhes").addEventListener("click", () => detalhes.classList.add("d-none"));
 
 carregarMateriais();
